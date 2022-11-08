@@ -1,0 +1,18 @@
+version: '3'                                                                                                                                                                                                       
+                                                                                                                                                                                                                   
+x-logging:                                                                                                                                                                                                         
+  &default-logging                                                                                                                                                                                                 
+  options:                                                                                                                                                                                                         
+    max-size: "10m"                                                                                                                                                                                                
+    max-file: "3"                                                                                                                                                                                                  
+  driver: json-file                                                                                                                                                                                                
+                                                                                                                                                                                                                   
+services: 
+  ros-lumecube:
+    image: ghcr.io/rosblox/ros-lumecube:humble
+    restart: always
+    network_mode: "host"
+    volumes:
+      - /var/run/dbus:/var/run/dbus
+    logging: *default-logging
+    command: ros2 run ros_lumecube lumecube_node
